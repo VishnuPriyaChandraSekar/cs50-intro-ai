@@ -99,18 +99,17 @@ def shortest_path(source, target):
 
     while not queue.empty():
         actor_node = queue.remove()
-        print(actor_node.state)
         if actor_node.state == target:
-            while actor_node.state is not source:
+            while actor_node.state != source:
                 shortest_path_list.append((actor_node.action, actor_node.state))
                 actor_node = actor_node.parent
             shortest_path_list.reverse()
-            break
+            return shortest_path_list
         for neighbor in neighbors_for_person(actor_node.state):
             if neighbor[1] not in visited:
                 queue.add(Node(state=neighbor[1], parent=actor_node, action=neighbor[0]))
                 visited.add(neighbor[1])
-    return shortest_path_list
+    return None
 
 def person_id_for_name(name):
     """
